@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:my_accrypt/app/route/app_route.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
@@ -15,7 +16,9 @@ class HomePage extends ConsumerWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, AppRoute.accountAdd.name);
+        },
         child: const Icon(
           Icons.add,
         ),

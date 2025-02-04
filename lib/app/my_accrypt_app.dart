@@ -72,10 +72,7 @@ class MyAccryptApp extends ConsumerWidget {
               systemNavigationBarIconBrightness:
                   isDarkMode ? Brightness.light : Brightness.dark,
             ),
-            child: Scaffold(
-              body: child,
-              endDrawer: SettingsPage(),
-            )
+            child: child!,
           ),
         );
       },
