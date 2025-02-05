@@ -24,17 +24,43 @@ android {
         applicationId = "com.accrypt.devhyeon.my_accrypt"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
-        minSdk = flutter.minSdkVersion
-        targetSdk = flutter.targetSdkVersion
+        minSdk = 23
+        targetSdk = 34
         versionCode = flutter.versionCode
         versionName = flutter.versionName
     }
 
+    flavorDimensions "targetEnvironment"
+    productFlavors {
+        dev {
+            dimension "targetEnvironment"
+            applicationIdSuffix ".dev"
+            resValue "string", "app_name", "MyAccrypt(dev)"
+        }
+        prod {
+            dimension "targetEnvironment"
+            resValue "string", "app_name", "MyAccrypt"
+        }
+    }
     buildTypes {
+        // TODO: Add your own signing config for the release build.
+        // Signing with the debug keys for now, so `flutter run --release` works.
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig = signingConfigs.debug
+            signingConfig signingConfigs.debug
+            //proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            //minifyEnabled true  // Proguard 활성화
+            //shrinkResources true  // 불필요한 리소스 제거
+        }
+        debug {
+            signingConfig signingConfigs.debug
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            debuggable true
+        }
+    }
+    
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            outputFileName = "${variant.name}-${flutter.versionName}.apk"
         }
     }
 }

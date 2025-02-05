@@ -1,0 +1,55 @@
+{
+    // Android Studio Example
+    // 1. Edit Configurations
+    // 2. +
+    // 3. my_accrypt (dev debug)
+    // 4. Additional run args : --flavor dev --dart-define=FLAVOR=dev
+    // 5. Build flavor : dev
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "my_accrypt (dev debug)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "debug",
+            "args": [
+                "--flavor",
+                "dev",
+                "--dart-define=FLAVOR=dev"
+            ]
+        },
+        {
+            "name": "my_accrypt (dev release)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release",
+            "args": [
+                "--flavor",
+                "dev",
+                "--dart-define=FLAVOR=dev"
+            ]
+        },
+        {
+            "name": "my_accrypt (prod debug)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "debug",
+            "args": [
+                "--flavor",
+                "prod",
+                "--dart-define=FLAVOR=prod"
+            ]
+        },
+        {
+            "name": "my_accrypt (prod release)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release",
+            "args": [
+                "--flavor",
+                "prod",
+                "--dart-define=FLAVOR=prod"
+            ]
+        }
+    ]
+}
