@@ -11,7 +11,7 @@ class SettingsPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('SettingTest'),
+        title: const Text('SettingTest2'),
       ),
       body: Text(
         '-',
