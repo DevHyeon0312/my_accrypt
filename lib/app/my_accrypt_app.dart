@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_accrypt/app/route/app_navigator.dart';
 import 'package:my_accrypt/app/viewmodels/app_config_viewmodel.dart';
-import 'package:my_accrypt/feature/main/presentation/pages/settings_page.dart';
 
 import 'route/app_route.dart';
 
