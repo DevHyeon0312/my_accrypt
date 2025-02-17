@@ -7,15 +7,15 @@ part 'account.g.dart';
 class Account with _$Account {
   const Account._();
   const factory Account({
-    @JsonKey(name: 'group_name') required String? groupName,
-    @JsonKey(name: 'user_id') required String? userId,
-    @JsonKey(name: 'user_password') required String? userPassword,
-    @JsonKey(name: 'user_name') required String? userName,
-    @JsonKey(name: 'site_name') required String? siteName,
-    @JsonKey(name: 'site_url') required String? siteUrl,
-    @JsonKey(name: 'note') required String? note,
-    @JsonKey(name: 'created_at') required String? createdAt,
-    @JsonKey(name: 'updated_at') required String? updatedAt,
+    @JsonKey(name: 'group_name') String? groupName,
+    @JsonKey(name: 'user_id') String? userId,
+    @JsonKey(name: 'user_password') String? userPassword,
+    @JsonKey(name: 'user_name') String? userName,
+    @JsonKey(name: 'site_name') String? siteName,
+    @JsonKey(name: 'site_url') String? siteUrl,
+    @JsonKey(name: 'note') String? note,
+    @JsonKey(name: 'created_at') String? createdAt,
+    @JsonKey(name: 'updated_at') String? updatedAt,
   }) = _Account;
 
   factory Account.fromJson(Map<String, Object?> json) => _$AccountFromJson(json);

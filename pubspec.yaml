@@ -30,6 +30,7 @@ dependencies:
 
   # local
   shared_preferences: ^2.3.3
+  sqflite: ^2.4.1
 
   # network
   dio: ^5.7.0

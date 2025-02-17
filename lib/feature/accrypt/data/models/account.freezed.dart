@@ -218,15 +218,15 @@ class __$$AccountImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$AccountImpl extends _Account {
   const _$AccountImpl(
-      {@JsonKey(name: 'group_name') required this.groupName,
-      @JsonKey(name: 'user_id') required this.userId,
-      @JsonKey(name: 'user_password') required this.userPassword,
-      @JsonKey(name: 'user_name') required this.userName,
-      @JsonKey(name: 'site_name') required this.siteName,
-      @JsonKey(name: 'site_url') required this.siteUrl,
-      @JsonKey(name: 'note') required this.note,
-      @JsonKey(name: 'created_at') required this.createdAt,
-      @JsonKey(name: 'updated_at') required this.updatedAt})
+      {@JsonKey(name: 'group_name') this.groupName,
+      @JsonKey(name: 'user_id') this.userId,
+      @JsonKey(name: 'user_password') this.userPassword,
+      @JsonKey(name: 'user_name') this.userName,
+      @JsonKey(name: 'site_name') this.siteName,
+      @JsonKey(name: 'site_url') this.siteUrl,
+      @JsonKey(name: 'note') this.note,
+      @JsonKey(name: 'created_at') this.createdAt,
+      @JsonKey(name: 'updated_at') this.updatedAt})
       : super._();
 
   factory _$AccountImpl.fromJson(Map<String, dynamic> json) =>
@@ -310,16 +310,15 @@ class _$AccountImpl extends _Account {
 
 abstract class _Account extends Account {
   const factory _Account(
-          {@JsonKey(name: 'group_name') required final String? groupName,
-          @JsonKey(name: 'user_id') required final String? userId,
-          @JsonKey(name: 'user_password') required final String? userPassword,
-          @JsonKey(name: 'user_name') required final String? userName,
-          @JsonKey(name: 'site_name') required final String? siteName,
-          @JsonKey(name: 'site_url') required final String? siteUrl,
-          @JsonKey(name: 'note') required final String? note,
-          @JsonKey(name: 'created_at') required final String? createdAt,
-          @JsonKey(name: 'updated_at') required final String? updatedAt}) =
-      _$AccountImpl;
+      {@JsonKey(name: 'group_name') final String? groupName,
+      @JsonKey(name: 'user_id') final String? userId,
+      @JsonKey(name: 'user_password') final String? userPassword,
+      @JsonKey(name: 'user_name') final String? userName,
+      @JsonKey(name: 'site_name') final String? siteName,
+      @JsonKey(name: 'site_url') final String? siteUrl,
+      @JsonKey(name: 'note') final String? note,
+      @JsonKey(name: 'created_at') final String? createdAt,
+      @JsonKey(name: 'updated_at') final String? updatedAt}) = _$AccountImpl;
   const _Account._() : super._();
 
   factory _Account.fromJson(Map<String, dynamic> json) = _$AccountImpl.fromJson;
