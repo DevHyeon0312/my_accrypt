@@ -50,6 +50,16 @@ class SearchPage extends HookConsumerWidget {
             //     border: OutlineInputBorder(),
             //   ),
             // ),
+            Consumer(builder: (context, ref, child) {
+              return Center(
+                  child: Text('Debug Tools'),
+                );
+            }),
+            HookConsumer(builder: (context, ref, child) {
+              return Center(
+                  child: Text('Debug Tools'),
+                );
+            }),
             const SizedBox(height: 20),
             const Center(
               child: Text('🔍 Search Page', style: TextStyle(fontSize: 24)),

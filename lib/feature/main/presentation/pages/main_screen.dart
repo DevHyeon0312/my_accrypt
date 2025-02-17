@@ -23,7 +23,7 @@ class MainScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final bottomNavIndex = ref.watch(bottomNavViewModelProvider);
+    final bottomNavIndex = ref.watch(bottomNavViewModelProvider.select((selector) => selector));
     final notifier = ref.read(bottomNavViewModelProvider.notifier);
 
     ref.listen(bottomNavViewModelProvider, (previous, next) {

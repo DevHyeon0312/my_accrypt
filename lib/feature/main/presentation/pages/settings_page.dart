@@ -1,8 +1,5 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-import '../../../../app/viewmodels/app_config_viewmodel.dart';
 
 class SettingsPage extends ConsumerWidget {
   const SettingsPage({super.key});
