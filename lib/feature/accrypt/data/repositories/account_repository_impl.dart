@@ -42,6 +42,24 @@ class AccountRepositoryImpl implements AccountRepository {
   }
 
   @override
+  Future<List<AccountEntity>> getAccountList() async {
+    final accountList = await localDataSource.getAccountList();
+    return accountList.map((account) {
+      return AccountEntity(
+        groupName: account.groupName ?? '',
+        userName: account.userName ?? '',
+        userId: account.userId ?? '',
+        userPassword: account.userPassword ?? '',
+        siteName: account.siteName ?? '',
+        siteUrl: account.siteUrl ?? '',
+        note: account.note ?? '',
+        createdAt: account.createdAt ?? '',
+        updatedAt: account.updatedAt ?? '',
+      );
+    }).toList();
+  }
+
+  @override
   Future<void> deleteAccount(String id) async {
     await localDataSource.deleteAccount(id);
   }

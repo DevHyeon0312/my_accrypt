@@ -40,6 +40,14 @@ class AccountLocalDataSource {
     return null;
   }
 
+  Future<List<Account>> getAccountList() async {
+    final db = database;
+    final maps = await db.query('accounts');
+    return List.generate(maps.length, (i) {
+      return Account.fromJson(maps[i]);
+    });
+  }
+
   Future<void> deleteAccount(String userId) async {
     final db = database;
     await db.delete(

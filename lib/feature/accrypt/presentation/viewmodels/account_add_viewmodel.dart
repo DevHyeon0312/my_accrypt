@@ -1,6 +1,5 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_accrypt/feature/accrypt/data/models/account.dart';
-import 'package:my_accrypt/feature/accrypt/domain/entities/account_entity.dart';
 import 'package:my_accrypt/feature/accrypt/domain/usecases/account_use_case.dart';
 
 class AccountAddViewModel extends StateNotifier<Account> {
@@ -43,7 +42,7 @@ class AccountAddViewModel extends StateNotifier<Account> {
   }
 
   Future<void> saveAccount() async {
-    final accountEntity = AccountEntity(
+    final accountEntity = Account(
       userId: state.userId ?? '',
       userName: state.userName ?? '',
       userPassword: state.userPassword ?? '',
