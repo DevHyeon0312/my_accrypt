@@ -34,10 +34,10 @@ class AccountAddPage extends ConsumerWidget {
         child: Column(
           children: [
             Consumer(builder: (context, ref, child) {
-              final siteName = ref.watch(accountAddViewModelProvider.select((value) => value.siteName ?? ''));
-              final siteUrl = ref.watch(accountAddViewModelProvider.select((value) => value.siteUrl ?? ''));
-              final userId = ref.watch(accountAddViewModelProvider.select((value) => value.userId ?? ''));
-              final userName = ref.watch(accountAddViewModelProvider.select((value) => value.userName ?? ''));
+              final siteName = ref.watch(accountAddViewModelProvider.select((value) => value.account.siteName ?? ''));
+              final siteUrl = ref.watch(accountAddViewModelProvider.select((value) => value.account.siteUrl ?? ''));
+              final userId = ref.watch(accountAddViewModelProvider.select((value) => value.account.userId ?? ''));
+              final userName = ref.watch(accountAddViewModelProvider.select((value) => value.account.userName ?? ''));
               return Center(
                 child: Text('${siteName}\n${siteUrl}\n${userId}\n${userName}'),
               );

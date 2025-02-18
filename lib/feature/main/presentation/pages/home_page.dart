@@ -8,8 +8,8 @@ class HomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final accountGetViewModel = ref.watch(accountGetViewModelProvider.notifier);
-    accountGetViewModel.getAccountList();
+    final accountListViewmodel = ref.watch(accountListViewmodelProvider.notifier);
+    accountListViewmodel.getAccountList();
     return Scaffold(
       appBar: AppBar(),
       body: const Center(

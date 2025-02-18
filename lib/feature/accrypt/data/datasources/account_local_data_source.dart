@@ -1,10 +1,18 @@
+import 'dart:async';
+
 import 'package:sqflite/sqflite.dart';
 import 'package:my_accrypt/feature/accrypt/data/models/account.dart';
 
 class AccountLocalDataSource {
   final Database database;
+  final StreamController<void> _changeController = StreamController.broadcast();
+  Stream<void> get onChange => _changeController.stream;
 
   AccountLocalDataSource(this.database);
+
+  void dispose() {
+    _changeController.close();
+  }
 
   Future<void> saveAccount(Account account) async {
     final db = database;
@@ -23,6 +31,7 @@ class AccountLocalDataSource {
       },
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
+    _changeController.add(null);
   }
 
   Future<Account?> getAccount(String userId) async {
@@ -55,5 +64,6 @@ class AccountLocalDataSource {
       where: 'user_id = ?',
       whereArgs: [userId],
     );
+    _changeController.add(null);
   }
 }

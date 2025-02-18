@@ -5,5 +5,9 @@ import 'package:my_accrypt/main_provider.dart';
 /// 📌 **AccountLocalDataSource Provider**
 final accountLocalDataSourceProvider = Provider.autoDispose<AccountLocalDataSource>((ref) {
   final database = ref.watch(accountDatabaseProvider);
-  return AccountLocalDataSource(database);
+  final dataSource = AccountLocalDataSource(database);
+  ref.onDispose(() {
+    dataSource.dispose();
+  });
+  return dataSource;
 });
