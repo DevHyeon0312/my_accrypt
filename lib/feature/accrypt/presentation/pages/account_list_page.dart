@@ -9,6 +9,10 @@ import '../../../../di.dart';
 class AccountListPage extends HookConsumerWidget {
   const AccountListPage({super.key});
 
+  void setSubscription(WidgetRef ref) {
+
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final notifier = ref.read(accountListViewmodelProvider.notifier);
@@ -17,7 +21,7 @@ class AccountListPage extends HookConsumerWidget {
     final searchController = useTextEditingController();
 
 
-    final accountLocalStream = ref.watch(accountLocalDataSourceProvider.select((value) => value.onChange));
+    final accountLocalStream = ref.read(accountLocalDataSourceProvider.select((value) => value.onChange));
     useEffect(() {
       final subscription = accountLocalStream.listen((event) {
         DebugLog.i('AccountListPage >> accountLocalStream: db data 변경');
