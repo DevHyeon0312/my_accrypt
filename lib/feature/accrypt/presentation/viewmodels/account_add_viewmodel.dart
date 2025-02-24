@@ -45,9 +45,9 @@ class AccountAddViewModel extends StateNotifier<AccountAddViewModelState> {
   }
 
   Future<bool> saveAccount() async {
-    DebugLog.i('AccountAddViewModel saveAccount');
+    DebugLog.d('AccountAddViewModel saveAccount');
     state = state.copyWith(isProgressVisible: true);
-    await Future.delayed(const Duration(seconds: 1));
+    await Future.delayed(const Duration(milliseconds: 300));
     final accountUiModel = AccountUiModel(
       userId: state.accountUiModel.userId ?? '',
       userName: state.accountUiModel.userName ?? '',
@@ -60,6 +60,13 @@ class AccountAddViewModel extends StateNotifier<AccountAddViewModelState> {
       createdAt: DateTime.now().toString(),
       updatedAt: null,
     );
+
+    var isValid = await _accountUseCase.isAccountValid(accountUiModel: accountUiModel, accountType: AccountType.findAccountTypeByKey(''),);
+    if (!isValid) {
+      state = state.copyWith(isProgressVisible: false);
+      return false;
+    }
+
     DebugLog.i('AccountAddViewModel saveAccount: $accountUiModel');
     return await _accountUseCase.saveAccount(
       accountUiModel: accountUiModel,
@@ -74,6 +81,12 @@ class AccountAddViewModel extends StateNotifier<AccountAddViewModelState> {
       DebugLog.i('AccountAddViewModel saveAccount whenComplete');
       state = state.copyWith(isProgressVisible: false);
     });
+  }
+
+  @override
+  void dispose() {
+    DebugLog.d('AccountAddViewModel dispose');
+    super.dispose();
   }
 }
 

@@ -12,6 +12,7 @@ class AccountRepositoryImpl implements AccountRepository {
   @override
   Future<void> saveAccount(AccountEntity accountEntity) async {
     final account = Account(
+      uuid: accountEntity.uuid,
       groupName: accountEntity.groupName,
       accountType: AccountType.findAccountTypeByKey(accountEntity.accountTypeKey),
       userName: accountEntity.userName,
@@ -28,10 +29,11 @@ class AccountRepositoryImpl implements AccountRepository {
   }
 
   @override
-  Future<AccountEntity?> getAccount(String id) async {
-    final account = await localDataSource.getAccount(id);
+  Future<AccountEntity?> getAccount(String uuid) async {
+    final account = await localDataSource.getAccount(uuid);
     if (account == null) return null;
     return AccountEntity(
+      uuid: account.uuid,
       groupName: account.groupName ?? '',
       accountTypeKey: account.accountType?.key ?? '',
       userName: account.userName ?? '',
@@ -51,6 +53,7 @@ class AccountRepositoryImpl implements AccountRepository {
     final accountList = await localDataSource.getAccountList();
     return accountList.map((account) {
       return AccountEntity(
+        uuid: account.uuid,
         groupName: account.groupName ?? '',
         accountTypeKey: account.accountType?.key ?? '',
         userName: account.userName ?? '',

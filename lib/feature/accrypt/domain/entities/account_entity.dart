@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart' show immutable;
 @immutable
 class AccountEntity {
   const AccountEntity({
+    required this.uuid,
     required this.groupName,
     required this.accountTypeKey,
     required this.userId,
@@ -16,6 +17,7 @@ class AccountEntity {
     required this.updatedAt,
   });
 
+  final String uuid;  /// UUID
   final String groupName; /// 계정 그룹 이름
   final String accountTypeKey; /// 계정 타입
   final String userId; /// 사용자 ID

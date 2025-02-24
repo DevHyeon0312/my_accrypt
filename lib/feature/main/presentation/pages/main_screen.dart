@@ -5,6 +5,7 @@ import 'package:my_accrypt/app/route/app_route.dart';
 import 'package:my_accrypt/common/base/base_scaffold.dart';
 import 'package:my_accrypt/common/utils/debug_log.dart';
 import 'package:my_accrypt/feature/accrypt/presentation/pages/account_list_page.dart';
+import 'package:my_accrypt/feature/main/presentation/pages/memo_page.dart';
 import 'package:my_accrypt/feature/main/presentation/pages/search_page.dart';
 
 import '../viewmodels/bottom_nav_viewmodel.dart';
@@ -46,7 +47,7 @@ class MainScreen extends HookConsumerWidget {
           index: bottomNavIndex,
           children: const [
             AccountListPage(),
-            SearchPage(),
+            MemoPage(),
             SettingsPage(),
           ],
         ),
@@ -60,8 +61,8 @@ class MainScreen extends HookConsumerWidget {
             label: 'Account',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Search',
+            icon: Icon(Icons.note_alt_outlined),
+            label: 'Memo',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),

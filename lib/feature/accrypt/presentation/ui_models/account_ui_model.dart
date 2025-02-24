@@ -1,4 +1,5 @@
 class AccountUiModel {
+  String? uuid;
   String? groupName;
   String? userId;
   String? userPassword;
@@ -11,6 +12,7 @@ class AccountUiModel {
   String? updatedAt;
 
   AccountUiModel({
+    this.uuid,
     required this.groupName,
     required this.userId,
     required this.userPassword,
@@ -25,6 +27,7 @@ class AccountUiModel {
 
   //copyWith
   AccountUiModel copyWith({
+    String? uuid,
     String? groupName,
     String? userId,
     String? userPassword,
@@ -37,6 +40,7 @@ class AccountUiModel {
     String? updatedAt,
   }) {
     return AccountUiModel(
+      uuid: uuid ?? this.uuid,
       groupName: groupName ?? this.groupName,
       userId: userId ?? this.userId,
       userPassword: userPassword ?? this.userPassword,

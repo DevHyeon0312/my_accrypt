@@ -20,6 +20,8 @@ Account _$AccountFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Account {
+  @JsonKey(name: 'uuid')
+  String get uuid => throw _privateConstructorUsedError;
   @JsonKey(name: 'group_name')
   String? get groupName => throw _privateConstructorUsedError;
   @JsonKey(name: 'account_type')
@@ -58,7 +60,8 @@ abstract class $AccountCopyWith<$Res> {
       _$AccountCopyWithImpl<$Res, Account>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'group_name') String? groupName,
+      {@JsonKey(name: 'uuid') String uuid,
+      @JsonKey(name: 'group_name') String? groupName,
       @JsonKey(name: 'account_type') AccountType? accountType,
       @JsonKey(name: 'user_id') String? userId,
       @JsonKey(name: 'user_password') String? userPassword,
@@ -86,6 +89,7 @@ class _$AccountCopyWithImpl<$Res, $Val extends Account>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? uuid = null,
     Object? groupName = freezed,
     Object? accountType = freezed,
     Object? userId = freezed,
@@ -99,6 +103,10 @@ class _$AccountCopyWithImpl<$Res, $Val extends Account>
     Object? updatedAt = freezed,
   }) {
     return _then(_value.copyWith(
+      uuid: null == uuid
+          ? _value.uuid
+          : uuid // ignore: cast_nullable_to_non_nullable
+              as String,
       groupName: freezed == groupName
           ? _value.groupName
           : groupName // ignore: cast_nullable_to_non_nullable
@@ -155,7 +163,8 @@ abstract class _$$AccountImplCopyWith<$Res> implements $AccountCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'group_name') String? groupName,
+      {@JsonKey(name: 'uuid') String uuid,
+      @JsonKey(name: 'group_name') String? groupName,
       @JsonKey(name: 'account_type') AccountType? accountType,
       @JsonKey(name: 'user_id') String? userId,
       @JsonKey(name: 'user_password') String? userPassword,
@@ -181,6 +190,7 @@ class __$$AccountImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? uuid = null,
     Object? groupName = freezed,
     Object? accountType = freezed,
     Object? userId = freezed,
@@ -194,6 +204,10 @@ class __$$AccountImplCopyWithImpl<$Res>
     Object? updatedAt = freezed,
   }) {
     return _then(_$AccountImpl(
+      uuid: null == uuid
+          ? _value.uuid
+          : uuid // ignore: cast_nullable_to_non_nullable
+              as String,
       groupName: freezed == groupName
           ? _value.groupName
           : groupName // ignore: cast_nullable_to_non_nullable
@@ -246,7 +260,8 @@ class __$$AccountImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$AccountImpl extends _Account {
   const _$AccountImpl(
-      {@JsonKey(name: 'group_name') this.groupName,
+      {@JsonKey(name: 'uuid') required this.uuid,
+      @JsonKey(name: 'group_name') this.groupName,
       @JsonKey(name: 'account_type') this.accountType,
       @JsonKey(name: 'user_id') this.userId,
       @JsonKey(name: 'user_password') this.userPassword,
@@ -262,6 +277,9 @@ class _$AccountImpl extends _Account {
   factory _$AccountImpl.fromJson(Map<String, dynamic> json) =>
       _$$AccountImplFromJson(json);
 
+  @override
+  @JsonKey(name: 'uuid')
+  final String uuid;
   @override
   @JsonKey(name: 'group_name')
   final String? groupName;
@@ -298,7 +316,7 @@ class _$AccountImpl extends _Account {
 
   @override
   String toString() {
-    return 'Account(groupName: $groupName, accountType: $accountType, userId: $userId, userPassword: $userPassword, userName: $userName, userPhone: $userPhone, siteName: $siteName, siteUrl: $siteUrl, note: $note, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'Account(uuid: $uuid, groupName: $groupName, accountType: $accountType, userId: $userId, userPassword: $userPassword, userName: $userName, userPhone: $userPhone, siteName: $siteName, siteUrl: $siteUrl, note: $note, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -306,6 +324,7 @@ class _$AccountImpl extends _Account {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$AccountImpl &&
+            (identical(other.uuid, uuid) || other.uuid == uuid) &&
             (identical(other.groupName, groupName) ||
                 other.groupName == groupName) &&
             (identical(other.accountType, accountType) ||
@@ -331,6 +350,7 @@ class _$AccountImpl extends _Account {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      uuid,
       groupName,
       accountType,
       userId,
@@ -361,7 +381,8 @@ class _$AccountImpl extends _Account {
 
 abstract class _Account extends Account {
   const factory _Account(
-      {@JsonKey(name: 'group_name') final String? groupName,
+      {@JsonKey(name: 'uuid') required final String uuid,
+      @JsonKey(name: 'group_name') final String? groupName,
       @JsonKey(name: 'account_type') final AccountType? accountType,
       @JsonKey(name: 'user_id') final String? userId,
       @JsonKey(name: 'user_password') final String? userPassword,
@@ -376,6 +397,9 @@ abstract class _Account extends Account {
 
   factory _Account.fromJson(Map<String, dynamic> json) = _$AccountImpl.fromJson;
 
+  @override
+  @JsonKey(name: 'uuid')
+  String get uuid;
   @override
   @JsonKey(name: 'group_name')
   String? get groupName;

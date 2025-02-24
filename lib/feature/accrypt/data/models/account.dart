@@ -8,6 +8,7 @@ part 'account.g.dart';
 class Account with _$Account {
   const Account._();
   const factory Account({
+    @JsonKey(name: 'uuid') required String uuid,
     @JsonKey(name: 'group_name') String? groupName,
     @JsonKey(name: 'account_type') AccountType? accountType,
     @JsonKey(name: 'user_id') String? userId,
