@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:my_accrypt/common/utils/platform_util.dart';
 
 class BaseScaffold extends StatelessWidget {
   const BaseScaffold({
@@ -28,7 +29,7 @@ class BaseScaffold extends StatelessWidget {
     this.drawerEnableOpenDragGesture = true,
     this.endDrawerEnableOpenDragGesture = true,
     this.restorationId,
-    this.canPop = false,
+    this.canPop,
     this.onPopInvokedWithResult,
   });
 
@@ -56,14 +57,18 @@ class BaseScaffold extends StatelessWidget {
   final bool drawerEnableOpenDragGesture;
   final bool endDrawerEnableOpenDragGesture;
   final String? restorationId;
-  final bool canPop;
+  final bool? canPop;
   final Function(bool, dynamic)? onPopInvokedWithResult;
 
   @override
   Widget build(BuildContext context) {
     return PopScope(
-      canPop: canPop,
-      onPopInvokedWithResult: onPopInvokedWithResult,
+      canPop: canPop ?? PlatformUtil.isIOS(),
+      onPopInvokedWithResult: onPopInvokedWithResult ?? (a, b) {
+        if (Navigator.canPop(context)) {
+          Navigator.pop(context);
+        }
+      },
       child: Scaffold(
         appBar: appBar,
         body: body,

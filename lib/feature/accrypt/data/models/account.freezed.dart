@@ -22,12 +22,16 @@ Account _$AccountFromJson(Map<String, dynamic> json) {
 mixin _$Account {
   @JsonKey(name: 'group_name')
   String? get groupName => throw _privateConstructorUsedError;
+  @JsonKey(name: 'account_type')
+  AccountType? get accountType => throw _privateConstructorUsedError;
   @JsonKey(name: 'user_id')
   String? get userId => throw _privateConstructorUsedError;
   @JsonKey(name: 'user_password')
   String? get userPassword => throw _privateConstructorUsedError;
   @JsonKey(name: 'user_name')
   String? get userName => throw _privateConstructorUsedError;
+  @JsonKey(name: 'user_phone')
+  String? get userPhone => throw _privateConstructorUsedError;
   @JsonKey(name: 'site_name')
   String? get siteName => throw _privateConstructorUsedError;
   @JsonKey(name: 'site_url')
@@ -55,9 +59,11 @@ abstract class $AccountCopyWith<$Res> {
   @useResult
   $Res call(
       {@JsonKey(name: 'group_name') String? groupName,
+      @JsonKey(name: 'account_type') AccountType? accountType,
       @JsonKey(name: 'user_id') String? userId,
       @JsonKey(name: 'user_password') String? userPassword,
       @JsonKey(name: 'user_name') String? userName,
+      @JsonKey(name: 'user_phone') String? userPhone,
       @JsonKey(name: 'site_name') String? siteName,
       @JsonKey(name: 'site_url') String? siteUrl,
       @JsonKey(name: 'note') String? note,
@@ -81,9 +87,11 @@ class _$AccountCopyWithImpl<$Res, $Val extends Account>
   @override
   $Res call({
     Object? groupName = freezed,
+    Object? accountType = freezed,
     Object? userId = freezed,
     Object? userPassword = freezed,
     Object? userName = freezed,
+    Object? userPhone = freezed,
     Object? siteName = freezed,
     Object? siteUrl = freezed,
     Object? note = freezed,
@@ -95,6 +103,10 @@ class _$AccountCopyWithImpl<$Res, $Val extends Account>
           ? _value.groupName
           : groupName // ignore: cast_nullable_to_non_nullable
               as String?,
+      accountType: freezed == accountType
+          ? _value.accountType
+          : accountType // ignore: cast_nullable_to_non_nullable
+              as AccountType?,
       userId: freezed == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
@@ -106,6 +118,10 @@ class _$AccountCopyWithImpl<$Res, $Val extends Account>
       userName: freezed == userName
           ? _value.userName
           : userName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      userPhone: freezed == userPhone
+          ? _value.userPhone
+          : userPhone // ignore: cast_nullable_to_non_nullable
               as String?,
       siteName: freezed == siteName
           ? _value.siteName
@@ -140,9 +156,11 @@ abstract class _$$AccountImplCopyWith<$Res> implements $AccountCopyWith<$Res> {
   @useResult
   $Res call(
       {@JsonKey(name: 'group_name') String? groupName,
+      @JsonKey(name: 'account_type') AccountType? accountType,
       @JsonKey(name: 'user_id') String? userId,
       @JsonKey(name: 'user_password') String? userPassword,
       @JsonKey(name: 'user_name') String? userName,
+      @JsonKey(name: 'user_phone') String? userPhone,
       @JsonKey(name: 'site_name') String? siteName,
       @JsonKey(name: 'site_url') String? siteUrl,
       @JsonKey(name: 'note') String? note,
@@ -164,9 +182,11 @@ class __$$AccountImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? groupName = freezed,
+    Object? accountType = freezed,
     Object? userId = freezed,
     Object? userPassword = freezed,
     Object? userName = freezed,
+    Object? userPhone = freezed,
     Object? siteName = freezed,
     Object? siteUrl = freezed,
     Object? note = freezed,
@@ -178,6 +198,10 @@ class __$$AccountImplCopyWithImpl<$Res>
           ? _value.groupName
           : groupName // ignore: cast_nullable_to_non_nullable
               as String?,
+      accountType: freezed == accountType
+          ? _value.accountType
+          : accountType // ignore: cast_nullable_to_non_nullable
+              as AccountType?,
       userId: freezed == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
@@ -189,6 +213,10 @@ class __$$AccountImplCopyWithImpl<$Res>
       userName: freezed == userName
           ? _value.userName
           : userName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      userPhone: freezed == userPhone
+          ? _value.userPhone
+          : userPhone // ignore: cast_nullable_to_non_nullable
               as String?,
       siteName: freezed == siteName
           ? _value.siteName
@@ -219,9 +247,11 @@ class __$$AccountImplCopyWithImpl<$Res>
 class _$AccountImpl extends _Account {
   const _$AccountImpl(
       {@JsonKey(name: 'group_name') this.groupName,
+      @JsonKey(name: 'account_type') this.accountType,
       @JsonKey(name: 'user_id') this.userId,
       @JsonKey(name: 'user_password') this.userPassword,
       @JsonKey(name: 'user_name') this.userName,
+      @JsonKey(name: 'user_phone') this.userPhone,
       @JsonKey(name: 'site_name') this.siteName,
       @JsonKey(name: 'site_url') this.siteUrl,
       @JsonKey(name: 'note') this.note,
@@ -236,6 +266,9 @@ class _$AccountImpl extends _Account {
   @JsonKey(name: 'group_name')
   final String? groupName;
   @override
+  @JsonKey(name: 'account_type')
+  final AccountType? accountType;
+  @override
   @JsonKey(name: 'user_id')
   final String? userId;
   @override
@@ -244,6 +277,9 @@ class _$AccountImpl extends _Account {
   @override
   @JsonKey(name: 'user_name')
   final String? userName;
+  @override
+  @JsonKey(name: 'user_phone')
+  final String? userPhone;
   @override
   @JsonKey(name: 'site_name')
   final String? siteName;
@@ -262,7 +298,7 @@ class _$AccountImpl extends _Account {
 
   @override
   String toString() {
-    return 'Account(groupName: $groupName, userId: $userId, userPassword: $userPassword, userName: $userName, siteName: $siteName, siteUrl: $siteUrl, note: $note, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'Account(groupName: $groupName, accountType: $accountType, userId: $userId, userPassword: $userPassword, userName: $userName, userPhone: $userPhone, siteName: $siteName, siteUrl: $siteUrl, note: $note, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -272,11 +308,15 @@ class _$AccountImpl extends _Account {
             other is _$AccountImpl &&
             (identical(other.groupName, groupName) ||
                 other.groupName == groupName) &&
+            (identical(other.accountType, accountType) ||
+                other.accountType == accountType) &&
             (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.userPassword, userPassword) ||
                 other.userPassword == userPassword) &&
             (identical(other.userName, userName) ||
                 other.userName == userName) &&
+            (identical(other.userPhone, userPhone) ||
+                other.userPhone == userPhone) &&
             (identical(other.siteName, siteName) ||
                 other.siteName == siteName) &&
             (identical(other.siteUrl, siteUrl) || other.siteUrl == siteUrl) &&
@@ -289,8 +329,19 @@ class _$AccountImpl extends _Account {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, groupName, userId, userPassword,
-      userName, siteName, siteUrl, note, createdAt, updatedAt);
+  int get hashCode => Object.hash(
+      runtimeType,
+      groupName,
+      accountType,
+      userId,
+      userPassword,
+      userName,
+      userPhone,
+      siteName,
+      siteUrl,
+      note,
+      createdAt,
+      updatedAt);
 
   /// Create a copy of Account
   /// with the given fields replaced by the non-null parameter values.
@@ -311,9 +362,11 @@ class _$AccountImpl extends _Account {
 abstract class _Account extends Account {
   const factory _Account(
       {@JsonKey(name: 'group_name') final String? groupName,
+      @JsonKey(name: 'account_type') final AccountType? accountType,
       @JsonKey(name: 'user_id') final String? userId,
       @JsonKey(name: 'user_password') final String? userPassword,
       @JsonKey(name: 'user_name') final String? userName,
+      @JsonKey(name: 'user_phone') final String? userPhone,
       @JsonKey(name: 'site_name') final String? siteName,
       @JsonKey(name: 'site_url') final String? siteUrl,
       @JsonKey(name: 'note') final String? note,
@@ -327,6 +380,9 @@ abstract class _Account extends Account {
   @JsonKey(name: 'group_name')
   String? get groupName;
   @override
+  @JsonKey(name: 'account_type')
+  AccountType? get accountType;
+  @override
   @JsonKey(name: 'user_id')
   String? get userId;
   @override
@@ -335,6 +391,9 @@ abstract class _Account extends Account {
   @override
   @JsonKey(name: 'user_name')
   String? get userName;
+  @override
+  @JsonKey(name: 'user_phone')
+  String? get userPhone;
   @override
   @JsonKey(name: 'site_name')
   String? get siteName;

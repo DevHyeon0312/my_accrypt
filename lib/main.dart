@@ -13,7 +13,7 @@ void main() async {
   final sharedPreferences = await SharedPreferences.getInstance();
   final database = await openDatabase(
     'accounts.db',
-    version: 1,
+    version: 2,
     onCreate: (db, version) {
       return db.execute(
           '''

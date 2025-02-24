@@ -4,10 +4,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_accrypt/app/route/app_route.dart';
 import 'package:my_accrypt/common/base/base_scaffold.dart';
 import 'package:my_accrypt/common/utils/debug_log.dart';
+import 'package:my_accrypt/feature/accrypt/presentation/pages/account_list_page.dart';
+import 'package:my_accrypt/feature/main/presentation/pages/search_page.dart';
 
 import '../viewmodels/bottom_nav_viewmodel.dart';
-import 'home_page.dart';
-import 'search_page.dart';
 import 'settings_page.dart';
 
 /// Main
@@ -27,6 +27,7 @@ class MainScreen extends HookConsumerWidget {
     final notifier = ref.read(bottomNavViewModelProvider.notifier);
 
     ref.listen(bottomNavViewModelProvider, (previous, next) {
+      DebugLog.d('main_screen: build - bottomNavViewModelProvider listen');
       listener(context, notifier, previous, next);
     });
 
@@ -44,7 +45,7 @@ class MainScreen extends HookConsumerWidget {
         child: IndexedStack(
           index: bottomNavIndex,
           children: const [
-            HomePage(),
+            AccountListPage(),
             SearchPage(),
             SettingsPage(),
           ],
@@ -55,8 +56,8 @@ class MainScreen extends HookConsumerWidget {
         onTap: notifier.onItemTapped,
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
+            icon: Icon(Icons.account_tree_outlined),
+            label: 'Account',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.search),
@@ -66,11 +67,11 @@ class MainScreen extends HookConsumerWidget {
             icon: Icon(Icons.settings),
             label: 'Settings',
           ),
-          if (kDebugMode)
-            BottomNavigationBarItem(
-              icon: Icon(Icons.bug_report_outlined),
-              label: 'Debug Tools',
-            ),
+          // if (kDebugMode)
+          //   BottomNavigationBarItem(
+          //     icon: Icon(Icons.bug_report_outlined),
+          //     label: 'Debug Tools',
+          //   ),
         ],
       ),
     );
