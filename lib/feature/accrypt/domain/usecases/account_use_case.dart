@@ -1,59 +1,67 @@
-import 'package:my_accrypt/feature/accrypt/data/models/account.dart';
+import 'package:my_accrypt/feature/accrypt/data/enums/account_types.dart';
 import 'package:my_accrypt/feature/accrypt/data/repositories/account_repository_impl.dart';
 import 'package:my_accrypt/feature/accrypt/domain/entities/account_entity.dart';
+import 'package:my_accrypt/feature/accrypt/presentation/ui_models/account_ui_model.dart';
 
 class AccountUseCase {
   final AccountRepositoryImpl repository;
 
   AccountUseCase(this.repository);
 
-  Future<void> saveAccount(Account account) async {
+  Future<void> saveAccount({
+    required AccountUiModel accountUiModel,
+    required AccountType accountType,
+  }) async {
     var accountEntity = AccountEntity(
-      groupName: account.groupName ?? '',
-      userId: account.userId ?? '',
-      userPassword: account.userPassword ?? '',
-      userName: account.userName ?? '',
-      siteName: account.siteName ?? '',
-      siteUrl: account.siteUrl ?? '',
-      note: account.note ?? '',
-      createdAt: account.createdAt ?? '',
-      updatedAt: account.updatedAt ?? '',
+      groupName: accountUiModel.groupName ?? '',
+      accountTypeKey: accountType.key,
+      userId: accountUiModel.userId ?? '',
+      userPassword: accountUiModel.userPassword ?? '',
+      userName: accountUiModel.userName ?? '',
+      userPhone: accountUiModel.userPhone ?? '',
+      siteName: accountUiModel.siteName ?? '',
+      siteUrl: accountUiModel.siteUrl ?? '',
+      note: accountUiModel.note ?? '',
+      createdAt: accountUiModel.createdAt ?? '',
+      updatedAt: accountUiModel.updatedAt ?? '',
     );
     await repository.saveAccount(
       accountEntity,
     );
   }
 
-  Future<Account?> getAccount(String id) async {
+  Future<AccountUiModel?> getAccount(String id) async {
     //
     var accountEntity = await repository.getAccount(id);
     if (accountEntity == null) return null;
-    return Account(
-      groupName: accountEntity.groupName ?? '',
-      userId: accountEntity.userId ?? '',
-      userPassword: accountEntity.userPassword ?? '',
-      userName: accountEntity.userName ?? '',
-      siteName: accountEntity.siteName ?? '',
-      siteUrl: accountEntity.siteUrl ?? '',
-      note: accountEntity.note ?? '',
-      createdAt: accountEntity.createdAt ?? '',
-      updatedAt: accountEntity.updatedAt ?? '',
+    return AccountUiModel(
+      groupName: accountEntity.groupName,
+      userId: accountEntity.userId,
+      userPassword: accountEntity.userPassword,
+      userName: accountEntity.userName,
+      userPhone: accountEntity.userPhone,
+      siteName: accountEntity.siteName,
+      siteUrl: accountEntity.siteUrl,
+      note: accountEntity.note,
+      createdAt: accountEntity.createdAt,
+      updatedAt: accountEntity.updatedAt,
     );
   }
 
-  Future<List<Account>> getAccountList() async {
+  Future<List<AccountUiModel>> getAccountList() async {
     var accountList = await repository.getAccountList();
     return accountList.map((accountEntity) {
-      return Account(
-        groupName: accountEntity.groupName ?? '',
-        userId: accountEntity.userId ?? '',
-        userPassword: accountEntity.userPassword ?? '',
-        userName: accountEntity.userName ?? '',
-        siteName: accountEntity.siteName ?? '',
-        siteUrl: accountEntity.siteUrl ?? '',
-        note: accountEntity.note ?? '',
-        createdAt: accountEntity.createdAt ?? '',
-        updatedAt: accountEntity.updatedAt ?? '',
+      return AccountUiModel(
+        groupName: accountEntity.groupName,
+        userId: accountEntity.userId,
+        userPassword: accountEntity.userPassword,
+        userName: accountEntity.userName,
+        userPhone: accountEntity.userPhone,
+        siteName: accountEntity.siteName,
+        siteUrl: accountEntity.siteUrl,
+        note: accountEntity.note,
+        createdAt: accountEntity.createdAt,
+        updatedAt: accountEntity.updatedAt,
       );
     }).toList();
   }

@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:my_accrypt/feature/accrypt/data/enums/account_types.dart';
 
 part 'account.freezed.dart';
 part 'account.g.dart';
@@ -8,9 +9,11 @@ class Account with _$Account {
   const Account._();
   const factory Account({
     @JsonKey(name: 'group_name') String? groupName,
+    @JsonKey(name: 'account_type') AccountType? accountType,
     @JsonKey(name: 'user_id') String? userId,
     @JsonKey(name: 'user_password') String? userPassword,
     @JsonKey(name: 'user_name') String? userName,
+    @JsonKey(name: 'user_phone') String? userPhone,
     @JsonKey(name: 'site_name') String? siteName,
     @JsonKey(name: 'site_url') String? siteUrl,
     @JsonKey(name: 'note') String? note,

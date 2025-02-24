@@ -35,6 +35,9 @@ dependencies:
   # network
   dio: ^5.7.0
 
+  # UI
+  flutter_expandable_fab: ^2.3.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

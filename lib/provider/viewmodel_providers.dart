@@ -6,12 +6,14 @@ import 'package:my_accrypt/provider/use_case_providers.dart';
 ///
 /// 📌 account ViewModel Provider
 ///
-final accountAddViewModelProvider = StateNotifierProvider.autoDispose<AccountAddViewModel, AccountAddViewModelState>((ref) {
+final accountAddViewModelProvider = StateNotifierProvider.autoDispose<
+    AccountAddViewModel, AccountAddViewModelState>((ref) {
   final useCase = ref.watch(accountUseCaseProvider);
   return AccountAddViewModel(useCase);
 });
 
-final accountListViewmodelProvider = StateNotifierProvider.autoDispose<AccountListViewmodel, AccountListViewModelState>((ref) {
+final accountListViewmodelProvider = StateNotifierProvider.autoDispose<
+    AccountListViewmodel, AccountListViewModelState>((ref) {
   final useCase = ref.watch(accountUseCaseProvider);
   return AccountListViewmodel(useCase);
 });
