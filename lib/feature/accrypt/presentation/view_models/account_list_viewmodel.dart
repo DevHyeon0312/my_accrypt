@@ -1,6 +1,7 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_accrypt/common/utils/debug_log.dart';
 import 'package:my_accrypt/feature/accrypt/domain/usecases/account_use_case.dart';
+import 'package:my_accrypt/feature/accrypt/presentation/mapper/account_entity_mapper.dart';
 import 'package:my_accrypt/feature/accrypt/presentation/ui_models/account_ui_model.dart';
 
 class AccountListViewmodel extends StateNotifier<AccountListViewModelState> {
@@ -18,7 +19,7 @@ class AccountListViewmodel extends StateNotifier<AccountListViewModelState> {
     final accountList = await _accountUseCase.getAccountList();
     state = state.copyWith(
       isProgressVisible: false,
-      accountList: accountList,
+      accountList: accountList.map((account) => account.toUiModel()).toList(),
     );
     DebugLog.i('accountList: $accountList');
   }

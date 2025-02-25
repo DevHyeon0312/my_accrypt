@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:sqflite/sqflite.dart';
+import 'package:my_accrypt/common/utils/debug_log.dart';
 import 'package:my_accrypt/feature/accrypt/data/models/account.dart';
 
 class AccountLocalDataSource {
@@ -19,6 +20,7 @@ class AccountLocalDataSource {
     await db.insert(
       'accounts',
       {
+        'uuid': account.uuid,
         'user_id': account.userId,
         'group_name': account.groupName,
         'user_password': account.userPassword,
@@ -34,12 +36,12 @@ class AccountLocalDataSource {
     _changeController.add(null);
   }
 
-  Future<Account?> getAccount(String userId) async {
+  Future<Account?> getAccount(String uuid) async {
     final db = database;
     final maps = await db.query(
       'accounts',
-      where: 'user_id = ?',
-      whereArgs: [userId],
+      where: 'uuid = ?',
+      whereArgs: [uuid],
       limit: 1,
     );
 
@@ -52,16 +54,22 @@ class AccountLocalDataSource {
   Future<List<Account>> getAccountList() async {
     final db = database;
     final maps = await db.query('accounts');
-    return List.generate(maps.length, (i) {
-      return Account.fromJson(maps[i]);
+    var nullableList = List.generate(maps.length, (i) {
+      try {
+        DebugLog.d('${maps[i]}');
+        return Account.fromJson(maps[i]);
+      } catch (e) {
+        return null;
+      }
     });
+    return nullableList.where((element) => element != null).toList().cast<Account>();
   }
 
   Future<void> deleteAccount(String userId) async {
     final db = database;
     await db.delete(
       'accounts',
-      where: 'user_id = ?',
+      where: 'uuid = ?',
       whereArgs: [userId],
     );
     _changeController.add(null);

@@ -1,7 +1,8 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_accrypt/common/utils/debug_log.dart';
-import 'package:my_accrypt/feature/accrypt/data/enums/account_types.dart';
+import 'package:my_accrypt/feature/accrypt/domain/enums/account_type.dart';
 import 'package:my_accrypt/feature/accrypt/domain/usecases/account_use_case.dart';
+import 'package:my_accrypt/feature/accrypt/presentation/mapper/account_ui_model_mapper.dart';
 import 'package:my_accrypt/feature/accrypt/presentation/ui_models/account_ui_model.dart';
 
 class AccountAddViewModel extends StateNotifier<AccountAddViewModelState> {
@@ -45,9 +46,9 @@ class AccountAddViewModel extends StateNotifier<AccountAddViewModelState> {
   }
 
   Future<bool> saveAccount() async {
-    DebugLog.i('AccountAddViewModel saveAccount');
+    DebugLog.d('AccountAddViewModel saveAccount');
     state = state.copyWith(isProgressVisible: true);
-    await Future.delayed(const Duration(seconds: 1));
+    await Future.delayed(const Duration(milliseconds: 1300));
     final accountUiModel = AccountUiModel(
       userId: state.accountUiModel.userId ?? '',
       userName: state.accountUiModel.userName ?? '',
@@ -60,10 +61,18 @@ class AccountAddViewModel extends StateNotifier<AccountAddViewModelState> {
       createdAt: DateTime.now().toString(),
       updatedAt: null,
     );
+
+    var isValid = await _accountUseCase.isAccountValid(
+      accountEntity: accountUiModel.toEntity(),
+    );
+    if (!isValid) {
+      state = state.copyWith(isProgressVisible: false);
+      return false;
+    }
+
     DebugLog.i('AccountAddViewModel saveAccount: $accountUiModel');
     return await _accountUseCase.saveAccount(
-      accountUiModel: accountUiModel,
-      accountType: AccountType.findAccountTypeByKey(''),
+      accountEntity: accountUiModel.toEntity(),
     ).then((value) {
       DebugLog.i('AccountAddViewModel saveAccount: true');
       return true;
@@ -74,6 +83,12 @@ class AccountAddViewModel extends StateNotifier<AccountAddViewModelState> {
       DebugLog.i('AccountAddViewModel saveAccount whenComplete');
       state = state.copyWith(isProgressVisible: false);
     });
+  }
+
+  @override
+  void dispose() {
+    DebugLog.d('AccountAddViewModel dispose');
+    super.dispose();
   }
 }
 

@@ -8,6 +8,7 @@ part of 'account.dart';
 
 _$AccountImpl _$$AccountImplFromJson(Map<String, dynamic> json) =>
     _$AccountImpl(
+      uuid: json['uuid'] as String,
       groupName: json['group_name'] as String?,
       accountType:
           $enumDecodeNullable(_$AccountTypeEnumMap, json['account_type']),
@@ -24,6 +25,7 @@ _$AccountImpl _$$AccountImplFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$AccountImplToJson(_$AccountImpl instance) =>
     <String, dynamic>{
+      'uuid': instance.uuid,
       'group_name': instance.groupName,
       'account_type': _$AccountTypeEnumMap[instance.accountType],
       'user_id': instance.userId,

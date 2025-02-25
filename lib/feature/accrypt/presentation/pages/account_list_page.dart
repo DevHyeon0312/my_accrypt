@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:my_accrypt/app/route/app_route.dart';
 import 'package:my_accrypt/common/base/base_scaffold.dart';
 import 'package:my_accrypt/common/utils/debug_log.dart';
+import 'package:my_accrypt/common/utils/safety_navigator.dart';
 import 'package:my_accrypt/common/widget/custom_floating_action_button/custom_floating_action_button.dart';
+import 'package:my_accrypt/feature/accrypt/presentation/widgets/account_list_item_widget.dart';
 
 import '../../../../di.dart';
 
@@ -33,12 +36,9 @@ class AccountListPage extends HookConsumerWidget {
 
     return BaseScaffold(
       canPop: false,
-      onPopInvokedWithResult: (a, b) {
-        if (Navigator.canPop(context)) {
-
-        }
-      },
+      onPopInvokedWithResult: (a, b) {},
       appBar: null,
+      backgroundColor: Colors.transparent,
       body: CustomScrollView(
         controller: scrollController,
         slivers: [
@@ -94,8 +94,25 @@ class AccountListPage extends HookConsumerWidget {
             SliverList(
               delegate: SliverChildBuilderDelegate(
                     (context, index) {
-                  return ListTile(
-                    title: Text('Item ${accountList[index].userId}'),
+                  return Padding(padding: EdgeInsets.only(
+                    left: 16,
+                    right: 16,
+                    top: index == 0 ? 16 : 0,
+                    bottom: index == accountList.length - 1 ? 16 : 0,
+                  ),
+                    child: AccountListItemWidget(
+                      accountUiModel: accountList[index],
+                      onClickItem: () async {
+                        DebugLog.d('AccountListPage onClickItem: $index');
+                        var result = await SafetyNavigator.pushNamed(
+                          context,
+                          AppRoute.accountDetail.name,
+                          arguments: {
+                            'uuid': accountList[index].uuid ?? 'test',
+                          },
+                        );
+                      },
+                    ),
                   );
                 },
                 childCount: accountList.length,

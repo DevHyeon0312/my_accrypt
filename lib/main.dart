@@ -13,12 +13,13 @@ void main() async {
   final sharedPreferences = await SharedPreferences.getInstance();
   final database = await openDatabase(
     'accounts.db',
-    version: 2,
+    version: 1,
     onCreate: (db, version) {
       return db.execute(
           '''
         CREATE TABLE accounts(
-          user_id TEXT PRIMARY KEY,
+          uuid TEXT PRIMARY KEY,
+          user_id TEXT,
           group_name TEXT,
           user_password TEXT,
           user_name TEXT,

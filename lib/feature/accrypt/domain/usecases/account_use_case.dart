@@ -1,40 +1,37 @@
-import 'package:my_accrypt/feature/accrypt/data/enums/account_types.dart';
-import 'package:my_accrypt/feature/accrypt/data/repositories/account_repository_impl.dart';
+import 'package:my_accrypt/common/utils/uuid_util.dart';
+import 'package:my_accrypt/feature/accrypt/domain/enums/account_type.dart';
 import 'package:my_accrypt/feature/accrypt/domain/entities/account_entity.dart';
-import 'package:my_accrypt/feature/accrypt/presentation/ui_models/account_ui_model.dart';
+import 'package:my_accrypt/feature/accrypt/domain/repositories/account_repository.dart';
 
 class AccountUseCase {
-  final AccountRepositoryImpl repository;
+  final AccountRepository repository;
 
   AccountUseCase(this.repository);
 
-  Future<void> saveAccount({
-    required AccountUiModel accountUiModel,
-    required AccountType accountType,
-  }) async {
-    var accountEntity = AccountEntity(
-      groupName: accountUiModel.groupName ?? '',
-      accountTypeKey: accountType.key,
-      userId: accountUiModel.userId ?? '',
-      userPassword: accountUiModel.userPassword ?? '',
-      userName: accountUiModel.userName ?? '',
-      userPhone: accountUiModel.userPhone ?? '',
-      siteName: accountUiModel.siteName ?? '',
-      siteUrl: accountUiModel.siteUrl ?? '',
-      note: accountUiModel.note ?? '',
-      createdAt: accountUiModel.createdAt ?? '',
-      updatedAt: accountUiModel.updatedAt ?? '',
+  Future<bool> isAccountValid({
+    required AccountEntity accountEntity,
+  }) {
+    return Future.value(
+      (accountEntity.userId ?? '').isNotEmpty &&
+          (accountEntity.userPassword ?? '').isNotEmpty &&
+          (accountEntity.siteName ?? '').isNotEmpty,
     );
-    await repository.saveAccount(
+  }
+
+  Future<void> saveAccount({
+    required AccountEntity accountEntity,
+  }) async {
+    return await repository.saveAccount(
       accountEntity,
     );
   }
 
-  Future<AccountUiModel?> getAccount(String id) async {
-    //
-    var accountEntity = await repository.getAccount(id);
+  Future<AccountEntity?> getAccount({required String uuid}) async {
+    var accountEntity = await repository.getAccount(uuid);
     if (accountEntity == null) return null;
-    return AccountUiModel(
+    return AccountEntity(
+      uuid: accountEntity.uuid,
+      accountType: accountEntity.accountType,
       groupName: accountEntity.groupName,
       userId: accountEntity.userId,
       userPassword: accountEntity.userPassword,
@@ -48,10 +45,12 @@ class AccountUseCase {
     );
   }
 
-  Future<List<AccountUiModel>> getAccountList() async {
+  Future<List<AccountEntity>> getAccountList() async {
     var accountList = await repository.getAccountList();
     return accountList.map((accountEntity) {
-      return AccountUiModel(
+      return AccountEntity(
+        uuid: accountEntity.uuid,
+        accountType: accountEntity.accountType,
         groupName: accountEntity.groupName,
         userId: accountEntity.userId,
         userPassword: accountEntity.userPassword,

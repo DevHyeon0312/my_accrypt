@@ -1,4 +1,8 @@
+import 'package:my_accrypt/feature/accrypt/domain/enums/account_type.dart';
+
 class AccountUiModel {
+  String? uuid;
+  AccountType accountType;
   String? groupName;
   String? userId;
   String? userPassword;
@@ -11,6 +15,8 @@ class AccountUiModel {
   String? updatedAt;
 
   AccountUiModel({
+    this.uuid,
+    this.accountType = AccountType.unknown,
     required this.groupName,
     required this.userId,
     required this.userPassword,
@@ -25,6 +31,8 @@ class AccountUiModel {
 
   //copyWith
   AccountUiModel copyWith({
+    String? uuid,
+    AccountType? accountType,
     String? groupName,
     String? userId,
     String? userPassword,
@@ -37,6 +45,8 @@ class AccountUiModel {
     String? updatedAt,
   }) {
     return AccountUiModel(
+      uuid: uuid ?? this.uuid,
+      accountType: accountType ?? this.accountType,
       groupName: groupName ?? this.groupName,
       userId: userId ?? this.userId,
       userPassword: userPassword ?? this.userPassword,

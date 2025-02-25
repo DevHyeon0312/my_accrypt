@@ -52,12 +52,16 @@ class _CustomFloatingActionButtonState extends State<CustomFloatingActionButton>
       try {
         if (_isExpanded) {
           if (_animationController.status != AnimationStatus.forward) {
-            await _animationController.forward().orCancel;
+            await _animationController.forward().orCancel.catchError((e) {
+              DebugLog.e('애니메이션 에러 : $e');
+            });
           }
         } else {
           if (_animationController.status != AnimationStatus.reverse &&
               _animationController.value > 0.0) {
-            await _animationController.reverse().orCancel;
+            await _animationController.reverse().orCancel.catchError((e) {
+              DebugLog.e('애니메이션 에러 : $e');
+            });
           }
         }
       } on TickerCanceled {
@@ -74,71 +78,82 @@ class _CustomFloatingActionButtonState extends State<CustomFloatingActionButton>
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.bottomRight,
-      children: [
-        if (_isExpanded)
-          GestureDetector(
-            onTap: _toggleFab, // 오버레이 클릭 시 FAB 닫힘
-            child: Container(
-              color: Colors.white.withOpacity(0.8), // 반투명 효과
-              width: double.infinity,
-              height: double.infinity,
+    return WillPopScope(
+      onWillPop: () async {
+        if (_isExpanded) {
+          DebugLog.d('🔥 PopScope: 뒤로가기 키 감지됨 - FAB 닫기');
+          _toggleFab();
+          return false;
+        }
+        return true;
+      },
+      child: Stack(
+        alignment: Alignment.bottomRight,
+        children: [
+          if (_isExpanded)
+            GestureDetector(
+              onTap: _toggleFab, // 오버레이 클릭 시 FAB 닫힘
+              child: Container(
+                color: Colors.white.withOpacity(0.8), // 반투명 효과
+                width: double.infinity,
+                height: double.infinity,
+              ),
             ),
-          ),
-        if (_isExpanded)
-          _AnimatedFabButton(
-            controller: _animationController,
-            index: 3,
-            icon: Icons.perm_identity_outlined,
-            label: 'ID/PW',
-            onPressed: () {
-              _toggleFab();
-              SafetyNavigator.pushNamed(context, AppRoute.accountAddIdPwType.name);
-            },
-          ),
-        if (_isExpanded)
-          _AnimatedFabButton(
-            controller: _animationController,
-            index: 2,
-            icon: Icons.email_outlined,
-            label: 'E-mail',
-            onPressed: () {
-              _toggleFab();
-              SafetyNavigator.pushNamed(context, AppRoute.accountAddEmailType.name);
-            }
-          ),
-        if (_isExpanded)
-          _AnimatedFabButton(
-            controller: _animationController,
-            index: 1,
-            icon: Icons.public_outlined,
-            label: 'Social',
-            onPressed: () => _showSnackBar(context, '계정 삭제 클릭됨'),
-          ),
-        Padding(
-          padding: const EdgeInsets.only(right: 16.0, bottom: 16.0),
-          child: ScaleTransition(
-            scale: Tween<double>(begin: 1, end: 0.8).animate(
-              CurvedAnimation(
-                  parent: _animationController, curve: Curves.easeInOut),
+          if (_isExpanded)
+            _AnimatedFabButton(
+              controller: _animationController,
+              index: 3,
+              icon: Icons.perm_identity_outlined,
+              label: 'ID/PW',
+              onPressed: () {
+                _toggleFab();
+                SafetyNavigator.pushNamed(
+                    context, AppRoute.accountAddIdPwType.name);
+              },
             ),
-            child: RotationTransition(
-              turns: Tween<double>(begin: 0.0, end: 0.5).animate(
+          if (_isExpanded)
+            _AnimatedFabButton(
+                controller: _animationController,
+                index: 2,
+                icon: Icons.email_outlined,
+                label: 'E-mail',
+                onPressed: () {
+                  _toggleFab();
+                  SafetyNavigator.pushNamed(
+                      context, AppRoute.accountAddEmailType.name);
+                }),
+          if (_isExpanded)
+            _AnimatedFabButton(
+              controller: _animationController,
+              index: 1,
+              icon: Icons.public_outlined,
+              label: 'Social',
+              onPressed: () => _showSnackBar(context, '계정 삭제 클릭됨'),
+            ),
+          Padding(
+            padding: const EdgeInsets.only(right: 16.0, bottom: 16.0),
+            child: ScaleTransition(
+              scale: Tween<double>(begin: 1, end: 0.8).animate(
                 CurvedAnimation(
                     parent: _animationController, curve: Curves.easeInOut),
               ),
-              child: FloatingActionButton(
-                onPressed: _toggleFab,
-                child: Icon(
-                  _isExpanded ? Icons.close : Icons.add,
-                  key: ValueKey<bool>(_isExpanded),
+              child: RotationTransition(
+                turns: Tween<double>(begin: 0.0, end: 0.5).animate(
+                  CurvedAnimation(
+                      parent: _animationController, curve: Curves.easeInOut),
+                ),
+                child: FloatingActionButton(
+                  onPressed: _toggleFab,
+                  child: Icon(
+                    _isExpanded ? Icons.close : Icons.add,
+                    key: ValueKey<bool>(_isExpanded),
+                  ),
                 ),
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

@@ -43,6 +43,12 @@ class MyAccryptApp extends ConsumerWidget {
           onPrimary: Colors.white,
           brightness: Brightness.light,
         ),
+        pageTransitionsTheme: const PageTransitionsTheme(
+          builders: {
+            TargetPlatform.android: CupertinoPageTransitionsBuilder(), // iOS 스타일
+            TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+          },
+        ),
         useMaterial3: true,
       ),
       darkTheme: ThemeData(
