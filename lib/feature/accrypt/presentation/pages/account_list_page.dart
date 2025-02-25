@@ -36,11 +36,7 @@ class AccountListPage extends HookConsumerWidget {
 
     return BaseScaffold(
       canPop: false,
-      onPopInvokedWithResult: (a, b) {
-        if (Navigator.canPop(context)) {
-
-        }
-      },
+      onPopInvokedWithResult: (a, b) {},
       appBar: null,
       backgroundColor: Colors.transparent,
       body: CustomScrollView(

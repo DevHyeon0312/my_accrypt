@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:my_accrypt/feature/accrypt/data/enums/account_types.dart';
+import 'package:my_accrypt/feature/accrypt/domain/enums/account_type.dart';
 
 part 'account.freezed.dart';
 part 'account.g.dart';

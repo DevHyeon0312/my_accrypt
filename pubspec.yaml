@@ -36,7 +36,7 @@ dependencies:
   dio: ^5.7.0
 
   # UI
-  flutter_expandable_fab: ^2.3.0
+  flutter_sliding_toast: ^1.4.3
 
 dev_dependencies:
   flutter_test:

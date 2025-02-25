@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_accrypt/app/route/app_route.dart';
@@ -6,7 +5,6 @@ import 'package:my_accrypt/common/base/base_scaffold.dart';
 import 'package:my_accrypt/common/utils/debug_log.dart';
 import 'package:my_accrypt/feature/accrypt/presentation/pages/account_list_page.dart';
 import 'package:my_accrypt/feature/main/presentation/pages/memo_page.dart';
-import 'package:my_accrypt/feature/main/presentation/pages/search_page.dart';
 
 import '../viewmodels/bottom_nav_viewmodel.dart';
 import 'settings_page.dart';

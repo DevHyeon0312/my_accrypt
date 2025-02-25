@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:my_accrypt/common/utils/debug_log.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:my_accrypt/common/utils/debug_log.dart';
 import 'package:my_accrypt/feature/accrypt/data/models/account.dart';
 
 class AccountLocalDataSource {

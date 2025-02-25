@@ -1,11 +1,12 @@
 import 'package:flutter/foundation.dart' show immutable;
+import 'package:my_accrypt/feature/accrypt/domain/enums/account_type.dart';
 
 @immutable
 class AccountEntity {
   const AccountEntity({
     required this.uuid,
     required this.groupName,
-    required this.accountTypeKey,
+    required this.accountType,
     required this.userId,
     required this.userPassword,
     required this.userName,
@@ -19,7 +20,7 @@ class AccountEntity {
 
   final String uuid;  /// UUID
   final String groupName; /// 계정 그룹 이름
-  final String accountTypeKey; /// 계정 타입
+  final AccountType accountType; /// 계정 타입
   final String userId; /// 사용자 ID
   final String userPassword; /// 사용자 비밀번호
   final String userName; /// 사용자 이름

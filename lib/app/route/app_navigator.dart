@@ -19,10 +19,11 @@ class AppNavigator {
         return MaterialPageRoute(
             builder: (_) => const MainScreen(), settings: settings);
       case AppRoute.debug:
-        return MaterialPageRoute(builder: (_) => const DebugPage(),settings: settings);
-      case AppRoute.accountAddIdPwType:
         return MaterialPageRoute(
-            builder: (_) => const AccountAddIdPwPage(), settings: settings);
+            builder: (_) => const DebugPage(), settings: settings);
+      case AppRoute.accountAddIdPwType:
+      return MaterialPageRoute(
+          builder: (_) => const AccountAddIdPwPage(), settings: settings);
       case AppRoute.accountAddEmailType:
         return MaterialPageRoute(
             builder: (_) => const AccountEmailPage(), settings: settings);

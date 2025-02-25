@@ -1,7 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_accrypt/common/utils/debug_log.dart';
 import 'package:my_accrypt/feature/accrypt/domain/usecases/account_use_case.dart';
+import 'package:my_accrypt/feature/accrypt/presentation/mapper/account_entity_mapper.dart';
 import 'package:my_accrypt/feature/accrypt/presentation/ui_models/account_ui_model.dart';
 
 class AccountDetailViewModel
@@ -24,7 +24,7 @@ class AccountDetailViewModel
       DebugLog.i('value: $value');
       state = state.copyWith(
         isProgressVisible: false,
-        accountUiModel: value,
+        accountUiModel: value?.toUiModel(),
       );
     }).onError((error, stackTrace) {
       DebugLog.e('error: $error');

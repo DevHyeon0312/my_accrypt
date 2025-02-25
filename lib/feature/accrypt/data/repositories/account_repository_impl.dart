@@ -1,8 +1,8 @@
 import 'package:my_accrypt/feature/accrypt/data/datasources/account_local_data_source.dart';
-import 'package:my_accrypt/feature/accrypt/data/enums/account_types.dart';
+import 'package:my_accrypt/feature/accrypt/data/models/account.dart';
+import 'package:my_accrypt/feature/accrypt/domain/enums/account_type.dart';
 import 'package:my_accrypt/feature/accrypt/domain/entities/account_entity.dart';
 import 'package:my_accrypt/feature/accrypt/domain/repositories/account_repository.dart';
-import 'package:my_accrypt/feature/accrypt/data/models/account.dart';
 
 class AccountRepositoryImpl implements AccountRepository {
   final AccountLocalDataSource localDataSource;
@@ -14,7 +14,7 @@ class AccountRepositoryImpl implements AccountRepository {
     final account = Account(
       uuid: accountEntity.uuid,
       groupName: accountEntity.groupName,
-      accountType: AccountType.findAccountTypeByKey(accountEntity.accountTypeKey),
+      accountType: accountEntity.accountType,
       userName: accountEntity.userName,
       userId: accountEntity.userId,
       userPassword: accountEntity.userPassword,
@@ -35,7 +35,7 @@ class AccountRepositoryImpl implements AccountRepository {
     return AccountEntity(
       uuid: account.uuid,
       groupName: account.groupName ?? '',
-      accountTypeKey: account.accountType?.key ?? '',
+      accountType: account.accountType ?? AccountType.unknown,
       userName: account.userName ?? '',
       userId: account.userId ?? '',
       userPassword: account.userPassword ?? '',
@@ -55,7 +55,7 @@ class AccountRepositoryImpl implements AccountRepository {
       return AccountEntity(
         uuid: account.uuid,
         groupName: account.groupName ?? '',
-        accountTypeKey: account.accountType?.key ?? '',
+        accountType: account.accountType ?? AccountType.unknown,
         userName: account.userName ?? '',
         userId: account.userId ?? '',
         userPassword: account.userPassword ?? '',
