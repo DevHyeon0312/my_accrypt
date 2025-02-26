@@ -40,7 +40,6 @@ Model : 데이터 계층에서 API 데이터, 로컬 데이터를 처리할 때 
 ┃ ┃ ┣ 📂 data : Data Layer
 ┃ ┃ ┃ ┣ 📂 datasources
 ┃ ┃ ┃ ┃ ┗ 📜 account_local_data_source.dart
-┃ ┃ ┃ ┗ 📂 enums
 ┃ ┃ ┃ ┣ 📂 models
 ┃ ┃ ┃ ┃ ┗ 📜 account.dart
 ┃ ┃ ┃ ┗ 📂 repositories
@@ -49,6 +48,8 @@ Model : 데이터 계층에서 API 데이터, 로컬 데이터를 처리할 때 
 ┃ ┃ ┣ 📂 domain : Domain Layer
 ┃ ┃ ┃ ┣ 📂 entities
 ┃ ┃ ┃ ┃ ┗ 📜 account_entity.dart
+┃ ┃ ┃ ┣ 📂 enums
+┃ ┃ ┃ ┃ ┗ 📜 account_type.dart
 ┃ ┃ ┃ ┣ 📂 repositories
 ┃ ┃ ┃ ┃ ┗ 📜 account_repository.dart
 ┃ ┃ ┃ ┗ 📂 usecases
