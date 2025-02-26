@@ -30,4 +30,9 @@ class AccountEntity {
   final String note; /// 메모
   final String createdAt; /// 생성일
   final String updatedAt; /// 수정일
+
+  @override
+  String toString() {
+    return 'AccountEntity{uuid: $uuid, groupName: $groupName, accountType: $accountType, userId: $userId, userPassword: $userPassword, userName: $userName, userPhone: $userPhone, siteName: $siteName, siteUrl: $siteUrl, note: $note, createdAt: $createdAt, updatedAt: $updatedAt}';
+  }
 }

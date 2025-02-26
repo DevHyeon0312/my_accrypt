@@ -16,7 +16,7 @@ class AccountUiModel {
 
   AccountUiModel({
     this.uuid,
-    this.accountType = AccountType.unknown,
+    required this.accountType,
     required this.groupName,
     required this.userId,
     required this.userPassword,
@@ -58,5 +58,10 @@ class AccountUiModel {
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
     );
+  }
+
+  @override
+  String toString() {
+    return 'AccountUiModel{uuid: $uuid, accountType: $accountType, groupName: $groupName, userId: $userId, userPassword: $userPassword, userName: $userName, userPhone: $userPhone, siteName: $siteName, siteUrl: $siteUrl, note: $note, createdAt: $createdAt, updatedAt: $updatedAt}';
   }
 }

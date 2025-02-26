@@ -45,11 +45,12 @@ class AccountAddViewModel extends StateNotifier<AccountAddViewModelState> {
     state = state.copyWith(accountUiModel: accountUiModel);
   }
 
-  Future<bool> saveAccount() async {
+  Future<bool> saveAccount(AccountType accountType) async {
     DebugLog.d('AccountAddViewModel saveAccount');
     state = state.copyWith(isProgressVisible: true);
     await Future.delayed(const Duration(milliseconds: 1300));
     final accountUiModel = AccountUiModel(
+      accountType: accountType,
       userId: state.accountUiModel.userId ?? '',
       userName: state.accountUiModel.userName ?? '',
       userPassword: state.accountUiModel.userPassword ?? '',
@@ -105,7 +106,9 @@ class AccountAddViewModelState {
     return AccountAddViewModelState(
       isProgressVisible: false,
       accountUiModel: AccountUiModel(
+        uuid: null,
         userId: '',
+        accountType: AccountType.unknown,
         userName: '',
         userPassword: '',
         groupName: '',

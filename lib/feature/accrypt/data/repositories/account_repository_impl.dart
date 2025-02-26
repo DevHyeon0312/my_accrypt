@@ -14,7 +14,7 @@ class AccountRepositoryImpl implements AccountRepository {
     final account = Account(
       uuid: accountEntity.uuid,
       groupName: accountEntity.groupName,
-      accountType: accountEntity.accountType,
+      accountTypeKey: accountEntity.accountType.key,
       userName: accountEntity.userName,
       userId: accountEntity.userId,
       userPassword: accountEntity.userPassword,
@@ -35,7 +35,7 @@ class AccountRepositoryImpl implements AccountRepository {
     return AccountEntity(
       uuid: account.uuid,
       groupName: account.groupName ?? '',
-      accountType: account.accountType ?? AccountType.unknown,
+      accountType: AccountType.findAccountTypeByKey(account.accountTypeKey),
       userName: account.userName ?? '',
       userId: account.userId ?? '',
       userPassword: account.userPassword ?? '',
@@ -55,7 +55,7 @@ class AccountRepositoryImpl implements AccountRepository {
       return AccountEntity(
         uuid: account.uuid,
         groupName: account.groupName ?? '',
-        accountType: account.accountType ?? AccountType.unknown,
+        accountType: AccountType.findAccountTypeByKey(account.accountTypeKey),
         userName: account.userName ?? '',
         userId: account.userId ?? '',
         userPassword: account.userPassword ?? '',

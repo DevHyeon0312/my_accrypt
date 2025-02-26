@@ -1,9 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:my_accrypt/app/route/app_route.dart';
 import 'package:my_accrypt/common/utils/debug_log.dart';
-import 'package:my_accrypt/common/utils/safety_navigator.dart';
 
-class CustomFabLocation extends FloatingActionButtonLocation {
+class CustomFloatingActionButton {
+  static FloatingActionButtonLocation customFabLocation() {
+    return _CustomFabLocation();
+  }
+
+  static Widget customFloatingActionButton({
+    Key? key,
+    required List<CustomFabItem> fabItems,
+  }) {
+    return _CustomFabButton(key: key, fabItems: fabItems);
+  }
+}
+
+class CustomFabItem {
+  final IconData icon;
+  final String label;
+  final VoidCallback onPressed;
+
+  const CustomFabItem({
+    required this.icon,
+    required this.label,
+    required this.onPressed,
+  });
+}
+
+class _CustomFabLocation extends FloatingActionButtonLocation {
   @override
   Offset getOffset(ScaffoldPrelayoutGeometry scaffoldGeometry) {
     return Offset(
@@ -15,16 +38,16 @@ class CustomFabLocation extends FloatingActionButtonLocation {
   }
 }
 
-/// TODO _AnimatedFabButton 을 public 으로 변경하고, CustomFloatingActionButton 에서 List<AnimatedFabButton> 으로 변경 후 사용
-class CustomFloatingActionButton extends StatefulWidget {
-  const CustomFloatingActionButton({super.key});
+class _CustomFabButton extends StatefulWidget {
+  const _CustomFabButton({super.key, required this.fabItems});
+
+  final List<CustomFabItem> fabItems;
 
   @override
-  State<CustomFloatingActionButton> createState() =>
-      _CustomFloatingActionButtonState();
+  State<_CustomFabButton> createState() => _CustomFabButtonState();
 }
 
-class _CustomFloatingActionButtonState extends State<CustomFloatingActionButton>
+class _CustomFabButtonState extends State<_CustomFabButton>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   bool _isExpanded = false;
@@ -71,11 +94,6 @@ class _CustomFloatingActionButtonState extends State<CustomFloatingActionButton>
     }
   }
 
-  void _showSnackBar(BuildContext context, String message) {
-    ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text(message)));
-  }
-
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -100,35 +118,23 @@ class _CustomFloatingActionButtonState extends State<CustomFloatingActionButton>
               ),
             ),
           if (_isExpanded)
-            _AnimatedFabButton(
-              controller: _animationController,
-              index: 3,
-              icon: Icons.perm_identity_outlined,
-              label: 'ID/PW',
-              onPressed: () {
-                _toggleFab();
-                SafetyNavigator.pushNamed(
-                    context, AppRoute.accountAddIdPwType.name);
-              },
-            ),
-          if (_isExpanded)
-            _AnimatedFabButton(
-                controller: _animationController,
-                index: 2,
-                icon: Icons.email_outlined,
-                label: 'E-mail',
-                onPressed: () {
-                  _toggleFab();
-                  SafetyNavigator.pushNamed(
-                      context, AppRoute.accountAddEmailType.name);
-                }),
-          if (_isExpanded)
-            _AnimatedFabButton(
-              controller: _animationController,
-              index: 1,
-              icon: Icons.public_outlined,
-              label: 'Social',
-              onPressed: () => _showSnackBar(context, '계정 삭제 클릭됨'),
+            Positioned(
+              bottom: 70,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  for (final item in widget.fabItems.asMap().entries)
+                    _AnimatedFabButton(
+                      controller: _animationController,
+                      icon: item.value.icon,
+                      label: item.value.label,
+                      onPressed: () {
+                        _toggleFab();
+                        item.value.onPressed();
+                      },
+                    ),
+                ],
+              ),
             ),
           Padding(
             padding: const EdgeInsets.only(right: 16.0, bottom: 16.0),
@@ -160,14 +166,13 @@ class _CustomFloatingActionButtonState extends State<CustomFloatingActionButton>
 
 class _AnimatedFabButton extends StatelessWidget {
   final AnimationController controller;
-  final int index;
   final IconData icon;
   final String label;
   final VoidCallback onPressed;
 
   const _AnimatedFabButton({
+    super.key,
     required this.controller,
-    required this.index,
     required this.icon,
     required this.label,
     required this.onPressed,
@@ -181,8 +186,8 @@ class _AnimatedFabButton extends StatelessWidget {
     ).animate(
       CurvedAnimation(
         parent: controller,
-        curve: Interval(
-          0.1 * index,
+        curve: const Interval(
+          0,
           1.0,
           curve: Curves.easeOut,
         ),
@@ -193,18 +198,15 @@ class _AnimatedFabButton extends StatelessWidget {
       padding: const EdgeInsets.only(right: 16.0, bottom: 16.0),
       child: SlideTransition(
         position: offsetAnimation,
-        child: Padding(
-          padding: EdgeInsets.only(bottom: 70.0 * index),
-          child: FadeTransition(
-            opacity: controller,
-            child: FloatingActionButton.extended(
-              heroTag: label,
-              onPressed: onPressed,
-              icon: Icon(icon),
-              label: SizedBox(
-                width: 50,
-                child: Text(label),
-              ),
+        child: FadeTransition(
+          opacity: controller,
+          child: FloatingActionButton.extended(
+            heroTag: label,
+            onPressed: onPressed,
+            icon: Icon(icon),
+            label: SizedBox(
+              width: 50,
+              child: Text(label),
             ),
           ),
         ),

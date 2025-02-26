@@ -5,6 +5,7 @@ import 'package:my_accrypt/common/base/base_scaffold.dart';
 import 'package:my_accrypt/common/utils/debug_log.dart';
 import 'package:my_accrypt/common/utils/platform_util.dart';
 import 'package:my_accrypt/common/utils/safety_navigator.dart';
+import 'package:my_accrypt/feature/accrypt/domain/enums/account_type.dart';
 import 'package:my_accrypt/feature/accrypt/presentation/widgets/account_input_widget.dart';
 import 'package:my_accrypt/provider/viewmodel_providers.dart';
 
@@ -90,7 +91,7 @@ class AccountAddIdPwPage extends HookConsumerWidget {
                       isRequired: true,
                       title: 'Site Name',
                       decoration: InputDecoration(
-                        hintText: PlatformUtil.isIOS() ? '애플' : '구글',
+                        hintText: PlatformUtil.isIOS() ? 'Apple' : 'Google',
                         hintStyle: const TextStyle(color: Colors.grey),
                       ),
                       onChanged: (String value) {
@@ -145,7 +146,7 @@ class AccountAddIdPwPage extends HookConsumerWidget {
                     return AccountInputWidget(
                       isEnabled: !isProgress,
                       isRequired: false,
-                      title: 'Group Name',
+                      title: 'User Name',
                       decoration: const InputDecoration(
                         hintText: 'DevHyeon',
                         hintStyle: TextStyle(color: Colors.grey),
@@ -271,9 +272,7 @@ class AccountAddIdPwPage extends HookConsumerWidget {
               onPressed: isProgress
                   ? null
                   : () async {
-                      // FocusManager.instance.primaryFocus?.unfocus();
-                      var result = await accountNotifier.saveAccount();
-                      // FocusManager.instance.primaryFocus?.unfocus();
+                      var result = await accountNotifier.saveAccount(AccountType.id);
                       if (result) {
                         // ignore: use_build_context_synchronously (SafetyNavigator 사용)
                         SafetyNavigator.pop(context);
@@ -281,9 +280,9 @@ class AccountAddIdPwPage extends HookConsumerWidget {
                         InteractiveToast.closeAllToast();
                         InteractiveToast.pop(
                           context,
-                          title: Text(
+                          title: const Text(
                             '저장에 실패했습니다.',
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: Colors.black,
                               fontSize: 14,
                               fontWeight: FontWeight.w700,
@@ -325,7 +324,6 @@ class AccountAddIdPwPage extends HookConsumerWidget {
           }),
         ),
       ),
-      resizeToAvoidBottomInset: true,
     );
   }
 }

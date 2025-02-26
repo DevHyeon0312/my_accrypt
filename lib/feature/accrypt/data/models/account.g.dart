@@ -10,8 +10,7 @@ _$AccountImpl _$$AccountImplFromJson(Map<String, dynamic> json) =>
     _$AccountImpl(
       uuid: json['uuid'] as String,
       groupName: json['group_name'] as String?,
-      accountType:
-          $enumDecodeNullable(_$AccountTypeEnumMap, json['account_type']),
+      accountTypeKey: json['account_type_key'] as String?,
       userId: json['user_id'] as String?,
       userPassword: json['user_password'] as String?,
       userName: json['user_name'] as String?,
@@ -27,7 +26,7 @@ Map<String, dynamic> _$$AccountImplToJson(_$AccountImpl instance) =>
     <String, dynamic>{
       'uuid': instance.uuid,
       'group_name': instance.groupName,
-      'account_type': _$AccountTypeEnumMap[instance.accountType],
+      'account_type_key': instance.accountTypeKey,
       'user_id': instance.userId,
       'user_password': instance.userPassword,
       'user_name': instance.userName,
@@ -38,11 +37,3 @@ Map<String, dynamic> _$$AccountImplToJson(_$AccountImpl instance) =>
       'created_at': instance.createdAt,
       'updated_at': instance.updatedAt,
     };
-
-const _$AccountTypeEnumMap = {
-  AccountType.id: 'id',
-  AccountType.email: 'email',
-  AccountType.phone: 'phone',
-  AccountType.social: 'social',
-  AccountType.unknown: 'unknown',
-};
