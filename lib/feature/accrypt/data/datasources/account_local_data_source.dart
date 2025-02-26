@@ -19,18 +19,7 @@ class AccountLocalDataSource {
     final db = database;
     await db.insert(
       'accounts',
-      {
-        'uuid': account.uuid,
-        'user_id': account.userId,
-        'group_name': account.groupName,
-        'user_password': account.userPassword,
-        'user_name': account.userName,
-        'site_name': account.siteName,
-        'site_url': account.siteUrl,
-        'note': account.note,
-        'created_at': account.createdAt,
-        'updated_at': account.updatedAt,
-      },
+      account.toJson(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
     _changeController.add(null);

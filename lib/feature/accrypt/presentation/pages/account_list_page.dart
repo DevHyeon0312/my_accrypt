@@ -13,17 +13,9 @@ import '../../../../di.dart';
 class AccountListPage extends HookConsumerWidget {
   const AccountListPage({super.key});
 
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  // stream listener
+  void accountLocalStreamListener(WidgetRef ref) {
     final notifier = ref.read(accountListViewmodelProvider.notifier);
-    final isProgressVisible = ref.watch(
-        accountListViewmodelProvider.select((value) => value
-            .isProgressVisible));
-    final accountList = ref.watch(
-        accountListViewmodelProvider.select((value) => value.accountList));
-    final searchController = useTextEditingController();
-    final scrollController = useScrollController();
-
     final accountLocalStream = ref.read(
         accountLocalDataSourceProvider.select((value) => value.onChange));
     useEffect(() {
@@ -33,6 +25,20 @@ class AccountListPage extends HookConsumerWidget {
       });
       return subscription.cancel; // 위젯이 dispose될 때 리스너 해제
     }, [accountLocalStream]);
+  }
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    accountLocalStreamListener(ref);
+
+    final notifier = ref.read(accountListViewmodelProvider.notifier);
+    final isProgressVisible = ref.watch(
+        accountListViewmodelProvider.select((value) => value
+            .isProgressVisible));
+    final accountList = ref.watch(
+        accountListViewmodelProvider.select((value) => value.accountList));
+    final searchController = useTextEditingController();
+    final scrollController = useScrollController();
 
     return BaseScaffold(
       canPop: false,
@@ -121,8 +127,30 @@ class AccountListPage extends HookConsumerWidget {
         ],
       ),
       // floatingActionButtonLocation: FloatingActionButtonLocation.e,
-      floatingActionButtonLocation: CustomFabLocation(),
-      floatingActionButton: const CustomFloatingActionButton(),
+      floatingActionButtonLocation: CustomFloatingActionButton.customFabLocation(),
+      floatingActionButton: CustomFloatingActionButton.customFloatingActionButton(fabItems: [
+        CustomFabItem(
+          icon: Icons.perm_identity_outlined,
+          label: 'ID/PW',
+          onPressed: () {
+            SafetyNavigator.pushNamed(context, AppRoute.accountAddIdPwType.name);
+          },
+        ),
+        CustomFabItem(
+          icon: Icons.email_outlined,
+          label: 'E-mail',
+          onPressed: () {
+            SafetyNavigator.pushNamed(context, AppRoute.accountAddEmailType.name);
+          },
+        ),
+        CustomFabItem(
+          icon: Icons.public_outlined,
+          label: 'Social',
+          onPressed: () {
+            // SafetyNavigator.pushNamed(context, AppRoute.accountAdd.name);
+          },
+        ),
+      ]),
       floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
     );
   }

@@ -18,10 +18,12 @@ void main() async {
           '''
         CREATE TABLE accounts(
           uuid TEXT PRIMARY KEY,
-          user_id TEXT,
+          account_type_key TEXT,
           group_name TEXT,
+          user_id TEXT,
           user_password TEXT,
           user_name TEXT,
+          user_phone TEXT,
           site_name TEXT,
           site_url TEXT,
           note TEXT,

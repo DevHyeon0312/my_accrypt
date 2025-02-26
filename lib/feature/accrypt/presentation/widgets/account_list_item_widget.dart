@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_accrypt/common/utils/debug_log.dart';
+import 'package:my_accrypt/feature/accrypt/domain/enums/account_type.dart';
 import 'package:my_accrypt/feature/accrypt/presentation/ui_models/account_ui_model.dart';
 
 class AccountListItemWidget extends HookConsumerWidget {
@@ -12,6 +13,19 @@ class AccountListItemWidget extends HookConsumerWidget {
     required this.accountUiModel,
     required this.onClickItem,
   });
+
+  String getAccountTypeText(AccountType accountType) {
+    switch (accountType) {
+      case AccountType.id:
+        return 'ID/PW';
+      case AccountType.email:
+        return 'Email';
+      case AccountType.social:
+        return 'Social';
+      default:
+        return '-';
+    }
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -55,7 +69,7 @@ class AccountListItemWidget extends HookConsumerWidget {
                 ),
                 child: Center(
                   child: Text(
-                    'ID/PW',
+                    getAccountTypeText(accountUiModel.accountType),
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 8,
