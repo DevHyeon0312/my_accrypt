@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_accrypt/common/base/base_scaffold.dart';
-import 'package:my_accrypt/common/utils/debug_log.dart';
 import 'package:my_accrypt/common/utils/safety_navigator.dart';
+import 'package:my_accrypt/feature/accrypt/presentation/widgets/account_viewer_widget.dart';
 import 'package:my_accrypt/provider/viewmodel_providers.dart';
 
 class AccountDetailPage extends HookConsumerWidget {
@@ -35,23 +34,17 @@ class AccountDetailPage extends HookConsumerWidget {
           Consumer(builder: (context, ref, child) {
             var accountUiModel = ref.watch(accountDetailViewModelProvider(args)
                 .select((value) => value.accountUiModel));
-            return Container(
-              padding: const EdgeInsets.only(
-                left: 16,
-                right: 16,
-              ),
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Text(accountUiModel?.siteName ?? ''),
-                    Text(accountUiModel?.siteUrl ?? ''),
-                    Text(accountUiModel?.userName ?? ''),
-                    Text(accountUiModel?.userId ?? ''),
-                    Text(accountUiModel?.userPassword ?? ''),
-                  ],
+            if (accountUiModel == null) {
+              return const SizedBox.shrink();
+            } else {
+              return SingleChildScrollView(
+                child: AccountViewerWidget(
+                  accountUiModel: accountUiModel,
+                  padding: const EdgeInsets.all(16),
+                  margin: const EdgeInsets.all(16),
                 ),
-              ),
-            );
+              );
+            }
           }),
           Consumer(builder: (context, ref, child) {
             final isProgress = ref.watch(accountDetailViewModelProvider(args)
